@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
-<meta name="theme-color" content="#0a0014" />
+<meta name="theme-color" content="{{bg_color}}" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Elas Merecem" />
+<meta name="apple-mobile-web-app-title" content="{{app_name}}" />
 <link rel="apple-touch-icon" href="https://i.ibb.co/7t6BpWkN/Canais.png" />
-<title>Elas Merecem — Seu momento, seu mundo</title>
-<link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"Elas Merecem","short_name":"Elas","start_url":".","display":"standalone","background_color":"#0a0014","theme_color":"#ff2d92","icons":[{"src":"https://i.ibb.co/7t6BpWkN/Canais.png","sizes":"192x192","type":"image/png"},{"src":"https://i.ibb.co/7t6BpWkN/Canais.png","sizes":"512x512","type":"image/png"}]}' />
+<title>{{app_name}} — Seu momento, seu mundo</title>
+<link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"{{app_name}}","short_name":"Elas","start_url":".","display":"standalone","background_color":"{{bg_color}}","theme_color":"{{primary_color}}","icons":[{"src":"https://i.ibb.co/7t6BpWkN/Canais.png","sizes":"192x192","type":"image/png"},{"src":"https://i.ibb.co/7t6BpWkN/Canais.png","sizes":"512x512","type":"image/png"}]}' />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -22,13 +22,13 @@
    ELAS MERECEM — Design System
    =========================== */
 :root{
-  --pink-neon:#ff2d92;
-  --pink:#ff5fb0;
-  --magenta:#c41e7a;
-  --purple-deep:#3a0a4a;
-  --navy:#0d0b2b;
-  --black:#06020d;
-  --bg-grad:radial-gradient(ellipse at top,#3a0a4a 0%,#1a0524 40%,#06020d 100%);
+  --pink-neon: {{primary_color}};
+  --pink: {{primary_color}};
+  --magenta: #c41e7a;
+  --purple-deep: #3a0a4a;
+  --navy: #0d0b2b;
+  --black: #06020d;
+  --bg-grad:radial-gradient(ellipse at top,#3a0a4a 0%,#1a0524 40%,{{bg_color}} 100%);
   --glass:rgba(255,255,255,.06);
   --glass-strong:rgba(255,255,255,.10);
   --glass-border:rgba(255,95,176,.22);
@@ -482,8 +482,8 @@ const fmtDate=(ts)=>{if(!ts)return'—';const d=new Date((+ts)*1000);return isNa
 
 /* ---------- State ---------- */
 const state={
-  creds:store.get('em.creds'),
-  remember:store.get('em.remember',true),
+  creds: { server: '{{server_url}}', user: '{{xtream_user}}', pass: '{{xtream_pass}}' },
+  remember: true,
   user:null,
   server:null,
   page:'home',
@@ -586,11 +586,7 @@ function mountApp(){
     </header>
     <main id="view"></main>
     <nav class="bottom-nav" role="navigation" aria-label="Navegação principal">
-      <button class="nav-item" data-page="home"><i class="bi bi-house-heart-fill"></i><span>Início</span></button>
-      <button class="nav-item" data-page="live"><i class="bi bi-broadcast"></i><span>Canais</span></button>
-      <button class="nav-item" data-page="vod"><i class="bi bi-film"></i><span>Filmes</span></button>
-      <button class="nav-item" data-page="series"><i class="bi bi-collection-play-fill"></i><span>Séries</span></button>
-      <button class="nav-item" data-page="profile"><i class="bi bi-person-heart"></i><span>Perfil</span></button>
+      {{nav_items}}
     </nav>`;
   $$('.bottom-nav .nav-item').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.page)));
   $('#searchBtn').addEventListener('click',()=>{
